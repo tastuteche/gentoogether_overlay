@@ -1,1 +1,7 @@
-# gentoogether_overlay
+* gentoogether_overlay
+some ebuild not in http://gpo.zugaina.org/; Or some ebuild modified for gentoo rap.
+* others
+** cp2my_overlay.sh
+a script copy ebuild to /r/a/p/usr/local/portage from /r/a/p/usr/portage or /r/a/p/var/lib/layman.
+*** usage
+cp2my_overlay.sh x11-misc/tint2, by example.
