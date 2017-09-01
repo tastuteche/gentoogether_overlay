@@ -1,0 +1,24 @@
+--- a/setup.py
++++ b/setup.py
+@@ -21,7 +21,7 @@
+       packages      = ['gs_pypi'],
+       package_data  = {'gs_pypi': ['data/*']},
+       scripts       = ['bin/gs-pypi-generate-db', 'bin/gs-pypi'],
+-      data_files    = [('/etc/g-sorcery/', ['gs-pypi.json']),
+-                       ('/etc/layman/overlays/', ['gs-pypi-overlays.xml'])],
++      data_files    = [('@GENTOO_PORTAGE_EPREFIX@/etc/g-sorcery/', ['gs-pypi.json']),
++                       ('@GENTOO_PORTAGE_EPREFIX@/etc/layman/overlays/', ['gs-pypi-overlays.xml'])],
+       license       = 'GPL-2',
+       )
+
+--- a/gs_pypi/gs_pypi_generate_db.py
++++ b/gs_pypi/gs_pypi_generate_db.py
+@@ -43,7 +43,7 @@
+ 
+     logger = Logger()
+     cfg_path = None
+-    for path in '.', '~', '/etc/g-sorcery':
++    for path in '.', '~', '@GENTOO_PORTAGE_EPREFIX@/etc/g-sorcery':
+         current = os.path.join(path, "gs-pypi.json")
+         if (os.path.isfile(current)):
+             cfg_path = path
