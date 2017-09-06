@@ -17,6 +17,7 @@ SLOT="0"
 KEYWORDS=""
 
 RDEPEND="dev-python/gitpython[${PYTHON_USEDEP}]
+dev-python/colored[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
