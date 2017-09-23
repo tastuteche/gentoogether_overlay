@@ -198,7 +198,7 @@ src_configure() {
 		$(use_enable selinux) \
 		--enable-pkgconfig \
 		--with-confdir="${EPREFIX}"/etc \
-		--with-default-system-dir="${EPREFIX}"/etc \
+		--with-default-system-dir="${EPREFIX}"/etc/lvm \
 		--exec-prefix="${EPREFIX}" \
 		--sbindir="${EPREFIX}/sbin" \
 		--with-staticdir="${EPREFIX}"/sbin \
