@@ -40,13 +40,26 @@ DEPEND="
 	dev-python/html5lib[${PYTHON_USEDEP}]
 	${RDEPEND}
 "
+pkg_setup() {
+	#/r/a/p/var/tmp/portage/sci-libs/tensorflow-9999
+	#https://stackoverflow.com/questions/39827168/using-cuda-8-0-with-gcc-6-x-bad-function-overloading-complaint
+	#export EXTRA_NVCCFLAGS="-std=c++11 -Xcompiler -D__CORRECT_ISO_CPP11_MATH_H_PROTO"
+	#
+	export LD_LIBRARY_PATH=/r/a/p/opt/cuda/lib64:/r/a/p/opt/cuda/extras/CUPTI/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+}
 
 src_prepare() {
 	sed -i -e 's/protobuf == 3.0.0a3/protobuf >= 2.6.0/g' \
-	tensorflow/tools/pip_package/setup.py
+		tensorflow/tools/pip_package/setup.py
+	sed -i -e "s@'/\(usr\|opt\|sbin\)@'/r/a/p/\1@g" ./configure.py || die
+	find "${S}" -type f -name 'CROSSTOOL*' -exec sed -i -e 's@\("\|-B\)/\(usr\|opt\|sbin\)@\1/r/a/p/\2@g' {} \;
 }
 
 src_configure() {
+	#         "-nvcc_options=compiler-options -D__CORRECT_ISO_CPP11_MATH_H_PROTO",
+	export TF_NEED_CUDA=1
+	export TF_CUDNN_VERSION=7
+	export TF_CUDA_VERSION=9.0
 	yes "" | ./configure
 
 	cat > CROSSTOOL << EOF
@@ -73,15 +86,16 @@ src_compile() {
 	echo "SANDBOX_WRITE=$SANDBOX_WRITE"
 	addwrite /proc/self
 
+	#--action_env=EXTRA_NVCCFLAGS
 	cat > bazelrc << EOF
 startup --batch
-build --spawn_strategy=standalone --genrule_strategy=standalone
+build --spawn_strategy=standalone --genrule_strategy=standalone --config=cuda --action_env=LD_LIBRARY_PATH --action_env=PATH --test_env=LD_LIBRARY_PATH --test_env=PATH
 build --jobs $(makeopts_jobs)
 EOF
 	export BAZELRC="$PWD/bazelrc"
-
+	#--action_env=EXTRA_NVCCFLAGS
 	bazel build \
-	 --spawn_strategy=standalone --genrule_strategy=standalone \
+	 --spawn_strategy=standalone --genrule_strategy=standalone --config=cuda --action_env=LD_LIBRARY_PATH --test_env=LD_LIBRARY_PATH --test_env=PATH \
 	 -c opt //tensorflow/tools/pip_package:build_pip_package
 }
 
