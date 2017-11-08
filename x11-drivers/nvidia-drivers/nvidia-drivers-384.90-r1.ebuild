@@ -576,3 +576,6 @@ pkg_postrm() {
 	use driver && use kernel_linux && linux-mod_pkg_postrm
 	use X && "${EROOT}"/usr/bin/eselect opengl set --use-old xorg-x11
 }
+#sudo mv /usr/src/linux-4.12.0-sabayon /usr/src/linux-4.12.0-sabayon_old
+#sudo ln -snf /r/a/p/usr/src/linux-4.12.0-sabayon /usr/src/linux-4.12.0-sabayon
+#ln -snf /r/a/p/usr/src/linux-4.12.0-sabayon /r/a/p/usr/src/linux
