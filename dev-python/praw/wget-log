@@ -1,0 +1,13 @@
+--2017-12-03 08:53:22--  https://github.com/michael-lazar/rtv/archive/v1.19.0.tar.gz
+Resolving github.com... 192.30.253.113, 192.30.253.112
+Connecting to github.com|192.30.253.113|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://codeload.github.com/michael-lazar/rtv/tar.gz/v1.19.0 [following]
+--2017-12-03 08:53:24--  https://codeload.github.com/michael-lazar/rtv/tar.gz/v1.19.0
+Resolving codeload.github.com... 192.30.253.120, 192.30.253.121
+Connecting to codeload.github.com|192.30.253.120|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [application/x-gzip]
+Saving to: ‘/r/a/p/usr/portage/distfiles/rtv-1.19.0.tar.gz’
+
+/r/a/p/usr/portage/distfiles/rtv-1.19.0.tar.gz           [          <=>                                                                                                         ]   1.51M  18.9KB/s               
